@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Remoting.Channels.Http;
 
 namespace WindowsFormsClient
 {
@@ -20,9 +21,12 @@ namespace WindowsFormsClient
         {
             try
             {
-                TcpChannel channel = new TcpChannel();
+                HttpChannel channel = new HttpChannel();
+                //TcpChannel channel = new TcpChannel();
                 ChannelServices.RegisterChannel(channel, true);
-                remoteObject = (RemotingObjects.IRemotingObject)Activator.GetObject(typeof(RemotingObjects.IRemotingObject), "tcp://localhost:12000/HostObject");
+                remoteObject = (RemotingObjects.IRemotingObject)Activator.GetObject(typeof(RemotingObjects.IRemotingObject), 
+                    //"tcp://localhost:12000/HostObject"
+                    "http://localhost:14000/HostObject");
             }
             catch
             {

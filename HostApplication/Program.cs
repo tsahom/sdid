@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Remoting.Channels.Http;
 
 namespace HostApplication
 {
@@ -16,10 +17,11 @@ namespace HostApplication
         {
             try
             {
-                TcpChannel channel = new TcpChannel(12000);
+                //TcpChannel channel = new TcpChannel(12000);
+                HttpChannel channel = new HttpChannel(14000);
                 ChannelServices.RegisterChannel(channel, true);
                 RemotingConfiguration.RegisterWellKnownServiceType(
-                    typeof(HostObject),"HostObject", WellKnownObjectMode.Singleton);
+                    typeof(HostObject),"HostObject", WellKnownObjectMode.SingleCall);
                 Console.WriteLine("Remote object ready at serveur side !");
                 Console.ReadLine();
             }
